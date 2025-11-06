@@ -30,7 +30,7 @@ services:
   # ---------------------------
   # 👤 User Service (internal)
   # ---------------------------
-  - type: web
+  - type: private
     name: user-service
     env: docker
     plan: starter
@@ -45,14 +45,12 @@ services:
     autoDeploy: true
     healthCheckPath: /health
     # Disable public access
-    envSpecificDetails:
-      - key: RENDER_EXTERNAL_URL
-        value: "false"
+    
 
   # ---------------------------
   # 📦 Order Service (internal)
   # ---------------------------
-  - type: web
+  - type: private
     name: order-service
     env: docker
     plan: starter
@@ -66,6 +64,4 @@ services:
         value: 3000
     autoDeploy: true
     healthCheckPath: /health
-    envSpecificDetails:
-      - key: RENDER_EXTERNAL_URL
-        value: "false"
+    
