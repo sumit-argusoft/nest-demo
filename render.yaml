@@ -1,11 +1,11 @@
 # render.yaml
-# Render configuration for multi-service NestJS monorepo
+# Multi-service NestJS monorepo on Render (Docker setup)
 
 version: 1
 
 services:
   # ---------------------------
-  # 🌐 API Gateway
+  # 🌐 API Gateway (public)
   # ---------------------------
   - type: web
     name: gateway
@@ -19,12 +19,16 @@ services:
         value: production
       - key: PORT
         value: 3000
+      # internal service URLs
+      - key: USER_SERVICE_URL
+        value: http://user-service:3000
+      - key: ORDER_SERVICE_URL
+        value: http://order-service:3000
     autoDeploy: true
     healthCheckPath: /health
-    # Expose publicly — this is your main entry point
 
   # ---------------------------
-  # 👤 User Service
+  # 👤 User Service (internal)
   # ---------------------------
   - type: web
     name: user-service
@@ -40,13 +44,13 @@ services:
         value: 3000
     autoDeploy: true
     healthCheckPath: /health
-    # Internal-only — not exposed publicly
-    headers:
-      - name: x-render-internal
-        value: true
+    # Disable public access
+    envSpecificDetails:
+      - key: RENDER_EXTERNAL_URL
+        value: "false"
 
   # ---------------------------
-  # 📦 Order Service
+  # 📦 Order Service (internal)
   # ---------------------------
   - type: web
     name: order-service
@@ -62,6 +66,6 @@ services:
         value: 3000
     autoDeploy: true
     healthCheckPath: /health
-    headers:
-      - name: x-render-internal
-        value: true
+    envSpecificDetails:
+      - key: RENDER_EXTERNAL_URL
+        value: "false"
