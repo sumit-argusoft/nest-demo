@@ -10,7 +10,7 @@ services:
   - type: web
     name: gateway
     env: docker
-    plan: starter
+    plan: free
     branch: main
     dockerfilePath: packages/gateway/Dockerfile
     dockerContext: .
@@ -33,7 +33,7 @@ services:
   - type: web
     name: user-service
     env: docker
-    plan: starter
+    plan: free
     branch: main
     dockerfilePath: packages/user-service/Dockerfile
     dockerContext: .
@@ -53,7 +53,7 @@ services:
   - type: web
     name: order-service
     env: docker
-    plan: starter
+    plan: free
     branch: main
     dockerfilePath: packages/order-service/Dockerfile
     dockerContext: .
