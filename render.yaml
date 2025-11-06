@@ -1,0 +1,67 @@
+# render.yaml
+# Render configuration for multi-service NestJS monorepo
+
+version: 1
+
+services:
+  # ---------------------------
+  # 🌐 API Gateway
+  # ---------------------------
+  - type: web
+    name: gateway
+    env: docker
+    plan: starter
+    branch: main
+    dockerfilePath: packages/gateway/Dockerfile
+    dockerContext: .
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+    autoDeploy: true
+    healthCheckPath: /health
+    # Expose publicly — this is your main entry point
+
+  # ---------------------------
+  # 👤 User Service
+  # ---------------------------
+  - type: web
+    name: user-service
+    env: docker
+    plan: starter
+    branch: main
+    dockerfilePath: packages/user-service/Dockerfile
+    dockerContext: .
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+    autoDeploy: true
+    healthCheckPath: /health
+    # Internal-only — not exposed publicly
+    headers:
+      - name: x-render-internal
+        value: true
+
+  # ---------------------------
+  # 📦 Order Service
+  # ---------------------------
+  - type: web
+    name: order-service
+    env: docker
+    plan: starter
+    branch: main
+    dockerfilePath: packages/order-service/Dockerfile
+    dockerContext: .
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+    autoDeploy: true
+    healthCheckPath: /health
+    headers:
+      - name: x-render-internal
+        value: true

@@ -1,0 +1,4 @@
+{
+  "/users": "http://user-service:3000",
+  "/orders": "http://order-service:3000"
+}

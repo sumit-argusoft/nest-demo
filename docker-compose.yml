@@ -1,0 +1,28 @@
+version: '3.9'
+services:
+  gateway:
+    build:
+      context: .
+      dockerfile: packages/gateway/Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - user-service
+      - order-service
+    environment:
+      - PROXY_MAP_PATH=/app/config/proxy-map.json
+      - AUTH_SECRET=changeme
+
+  user-service:
+    build:
+      context: .
+      dockerfile: packages/user-service/Dockerfile
+    ports:
+      - "3001:3000"
+
+  order-service:
+    build:
+      context: .
+      dockerfile: packages/order-service/Dockerfile
+    ports:
+      - "3002:3000"
