@@ -30,7 +30,7 @@ services:
   # ---------------------------
   # 👤 User Service (internal)
   # ---------------------------
-  - type: private
+  - type: web
     name: user-service
     env: docker
     plan: starter
@@ -50,7 +50,7 @@ services:
   # ---------------------------
   # 📦 Order Service (internal)
   # ---------------------------
-  - type: private
+  - type: web
     name: order-service
     env: docker
     plan: starter
