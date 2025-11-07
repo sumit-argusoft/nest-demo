@@ -30,7 +30,7 @@ services:
   # ---------------------------
   # 👤 User Service (internal)
   # ---------------------------
-  - type: pserv
+  - type: web
     name: user-service
     env: docker
     plan: free
@@ -50,7 +50,7 @@ services:
   # ---------------------------
   # 📦 Order Service (internal)
   # ---------------------------
-  - type: pserv
+  - type: web
     name: order-service
     env: docker
     plan: free
